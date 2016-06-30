@@ -5,7 +5,8 @@ module Correios
       attr_accessor :cep_origem, :cep_destino
       attr_accessor :diametro, :mao_propria, :aviso_recebimento, :valor_declarado
       attr_accessor :codigo_empresa, :senha, :encomenda
-      attr_writer :peso, :comprimento, :largura, :altura, :formato
+      attr_accessor :logger, :log_level
+      attr_writer   :peso, :comprimento, :largura, :altura, :formato
 
       DEFAULT_OPTIONS = {
         :peso => 0.0,
@@ -16,7 +17,9 @@ module Correios
         :formato => :caixa_pacote,
         :mao_propria => false,
         :aviso_recebimento => false,
-        :valor_declarado => 0.0
+        :valor_declarado => 0.0,
+        :logger => nil,
+        :log_level => :info
       }
 
       def initialize(options = {})
@@ -53,6 +56,15 @@ module Correios
       def respond_to?(method_name)
         return true if method_name.to_s =~ /^(calcular|calculate)_(.*)/ && Correios::Frete::Servico.code_from_type($2.to_sym)
         super
+      end
+
+      def log message
+        Correios::Frete.log(message)
+        logger.send(logger_level, message) unless logger.nil?
+      end
+
+      def logger_level
+        @frete.log_level || Correios::Frete.log_level
       end
 
       private

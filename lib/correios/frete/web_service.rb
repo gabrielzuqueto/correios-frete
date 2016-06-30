@@ -10,6 +10,8 @@ module Correios
       CONDITIONS = { true => "S", false => "N" }
 
       def initialize(frete, service_types)
+        @frete = frete
+        @service_types = service_types
         @url = "#{URL}?#{params_for(frete, service_types)}"
       end
 
@@ -56,9 +58,9 @@ module Correios
       end
 
       def with_log
-        Correios::Frete.log format_request_message
+        @frete.log(format_request_message)
         response = yield
-        Correios::Frete.log format_response_message(response)
+        @frete.log(format_response_message(response))
         response
       end
 
@@ -70,7 +72,7 @@ module Correios
       def format_response_message(response)
         message =  with_line_break { "Correios-Frete Response:" }
         message << with_line_break { "HTTP/#{response.http_version} #{response.code} #{response.message}" }
-        message << with_line_break { format_headers_for(response) } if Correios::Frete.log_level == :debug
+        message << with_line_break { format_headers_for(response) } if @frete.log_level == :debug
         message << with_line_break { response.body }
       end
 

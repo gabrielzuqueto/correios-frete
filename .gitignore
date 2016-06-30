@@ -26,3 +26,4 @@ tmp
 # RVM
 .ruby-gemset
 .ruby-version
+.byebug_history
