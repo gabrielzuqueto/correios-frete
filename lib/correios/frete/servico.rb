@@ -11,6 +11,8 @@ module Correios
         "41068" => { :type => :pac_com_contrato,            :name => "PAC",            :description => "PAC com contrato"                  },
         "04669" => { :type => :pac_com_contrato_2,          :name => "PAC",            :description => "PAC com contrato"                  },
         "41300" => { :type => :pac_gf,                      :name => "PAC GF",         :description => "PAC para grandes formatos"         },
+        "04693" => { :type => :pac_gf_2,                    :name => "PAC GF",         :description => "PAC para grandes formatos"         },
+        "04677" => { :type => :pac_reverso,                 :name => "PAC Reverso",    :description => "PAC Reverso"                       },
         "40010" => { :type => :sedex,                       :name => "SEDEX",          :description => "SEDEX sem contrato"                },
         "40045" => { :type => :sedex_a_cobrar,              :name => "SEDEX a Cobrar", :description => "SEDEX a Cobrar, sem contrato"      },
         "40126" => { :type => :sedex_a_cobrar_com_contrato, :name => "SEDEX a Cobrar", :description => "SEDEX a Cobrar, com contrato"      },
